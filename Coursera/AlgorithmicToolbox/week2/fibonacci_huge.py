@@ -44,7 +44,6 @@ def test_cases():
     print('all test cases complete')
 
 if __name__ == '__main__':
-    test_cases()
     input = sys.stdin.read();
     n, m = map(int, input.split())
     print(get_fibonacci_huge_naive(n, m))

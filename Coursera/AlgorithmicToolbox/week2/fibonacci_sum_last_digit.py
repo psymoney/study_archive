@@ -19,7 +19,6 @@ def fibonacci_sum_naive(n):
     sum_digit = sum_pattern_digit * quotient_n % 10
     sum_pattern_to_remainder_digit = sum_pattern_to_remainder % 10
 
-
     return (sum_digit + sum_pattern_to_remainder_digit) % 10
 
 
