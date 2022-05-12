@@ -1,4 +1,10 @@
-# Uses python3
+#### Last Digit of the Sum of Fibonacci Numbers
+### Problem Description
+## Task. Given an integer 𝑛, find the last digit of the sum 𝐹0 + 𝐹1 + · · · + 𝐹𝑛.
+## Input Format. The input consists of a single integer 𝑛.
+## Constraints. 0 ≤ 𝑛 ≤ 10**14.
+## Output Format. Output the last digit of 𝐹0 + 𝐹1 + · · · + 𝐹𝑛.
+
 import sys
 
 

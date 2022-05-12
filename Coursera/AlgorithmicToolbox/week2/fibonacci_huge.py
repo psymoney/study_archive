@@ -1,4 +1,9 @@
-# Uses python3
+### Problem Description
+## Task. Given two integers n and m, output F(n) mod m (that is, the remainder of F(n) when divided by m).
+## Input Format. The input consist of two integers n and m given on the same line (seperated by a space).
+## Constraints. 1<= n <=10^14, 2<= m <=10^3
+##Output Format. Output F(n) mod m.
+
 import sys
 
 
@@ -47,11 +52,3 @@ if __name__ == '__main__':
     input = sys.stdin.read();
     n, m = map(int, input.split())
     print(get_fibonacci_huge_naive(n, m))
-
-
-### Problem Description
-## Task. Given two integers n and m, output F(n) mod m (that is, the remainder of F(n) when divided by m).
-## Input Format. The input consist of two integers n and m given on the same line (seperated by a space).
-## Constraints. 1<= n <=10^14, 2<= m <=10^3
-##Output Format. Output F(n) mod m.
-
