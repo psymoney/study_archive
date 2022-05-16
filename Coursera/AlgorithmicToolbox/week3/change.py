@@ -30,6 +30,6 @@ def test_cases():
 
 
 if __name__ == '__main__':
-    test_cases()
+    # test_cases()
     m = int(sys.stdin.read())
     print(get_change(m))
