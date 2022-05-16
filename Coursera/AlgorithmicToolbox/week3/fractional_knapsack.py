@@ -46,7 +46,7 @@ def test_cases():
 
 
 if __name__ == "__main__":
-    test_cases()
+    # test_cases()
     data = list(map(int, sys.stdin.read().split()))
     n, capacity = data[0:2]
     values = data[2:(2 * n + 2):2]
