@@ -18,7 +18,7 @@ def get_optimal_value(capacity, weights, values):
     value = 0
     value_per_weight = []
     for i, v in enumerate(values):
-        value_per_weight.append(round(v / weights[i], 5))
+        value_per_weight.append(v / weights[i])
 
     while capacity > 0 and len(value_per_weight) > 0:
         idx = value_per_weight.index(max(value_per_weight))
@@ -31,7 +31,7 @@ def get_optimal_value(capacity, weights, values):
         values.pop(idx)
         weights.pop(idx)
         value_per_weight.pop(idx)
-    return round(value, 5)
+    return round(value, 4)
 
 
 def test_cases():
