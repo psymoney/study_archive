@@ -23,29 +23,33 @@ Segment = namedtuple('Segment', 'start end')
 
 
 def optimal_points(segments):
-    count = 0
+    segments.sort(key=lambda segment: segment[1])
     points = []
     i = 0
-    while i < len(segments):
+    while i < len(segments) - 1:
         point = segments[i][1]
         for j in range(i+1, len(segments)):
-            if point < segments[j][0]:
-                points.append(point)
-                break
             i += 1
-    print(points)
+            if point < segments[j][0]:
+                break
+        points.append(point)
     return points
 
 
 def test_cases():
-    if optimal_points([[1,3], [2,5], [3,6]]) != [1,3]:
+    if optimal_points([[1,3], [2,5], [3,6]]) == [3]:
         print('first test success')
     else:
         print('first test failed')
 
+    if optimal_points([[4,7], [1,3], [2,5], [5,6]]) == [3,6]:
+        print('second test success')
+    else:
+        print('second test failed')
+
 
 if __name__ == '__main__':
-    test_cases()
+    # test_cases()
     input = sys.stdin.read()
     n, *data = map(int, input.split())
     segments = list(map(lambda x: Segment(x[0], x[1]), zip(data[::2], data[1::2])))
