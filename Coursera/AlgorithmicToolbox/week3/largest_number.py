@@ -52,12 +52,6 @@ def largest_number(digits):
     return int(concatenated_numbers)
 
 
-def get_first_digit(number):
-    while number >= 10:
-        number = number // 10
-    return number
-
-
 def is_greater_or_equal(a, b):
     if b == -1:
         return True
@@ -70,36 +64,6 @@ def is_greater_or_equal(a, b):
         return True
     else:
         return False
-
-# def is_greater_or_equal(a, b):
-#     if b == -1:
-#         return True
-#     a_list = []
-#     b_list = []
-#
-#     while a >= 10:
-#         a_list.insert(0, a % 10)
-#         a = a // 10
-#     a_list.insert(0, a)
-#
-#     while b >= 10:
-#         b_list.insert(0, b % 10)
-#         b = b // 10
-#     b_list.insert(0, b)
-#
-#     while len(a_list) > 0 and len(b_list) > 0:
-#         if a_list[0] == b_list[0]:
-#             a_list.pop(0)
-#             b_list.pop(0)
-#             continue
-#         elif a_list[0] > b_list[0]:
-#             return True
-#         elif a_list[0] < b_list[0]:
-#             return False
-#     if len(a_list) == 0:
-#         return True
-#     elif len(b_list) == 0:
-#         return False
 
 
 def test_cases():
