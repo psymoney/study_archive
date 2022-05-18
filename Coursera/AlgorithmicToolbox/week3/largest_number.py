@@ -49,7 +49,6 @@ def largest_number(digits):
     concatenated_numbers = ''
     for n in numbers_in_order:
         concatenated_numbers += str(n)
-    print(int(concatenated_numbers))
     return int(concatenated_numbers)
 
 
@@ -60,26 +59,47 @@ def get_first_digit(number):
 
 
 def is_greater_or_equal(a, b):
-    a_digit = get_first_digit(a)
-    b_digit = get_first_digit(b)
-    a_quotient = a // 10
-    b_quotient = b // 10
+    if b == -1:
+        return True
+    a_b = str(a) + str(b)
+    b_a = str(b) + str(a)
+    a_b = int(a_b)
+    b_a = int(b_a)
 
-    if a_digit == b_digit:
-        if a_quotient == b_quotient:
-            if a <= b:
-                return False
-            else:
-                return True
-        else:
-            if a <= b:
-                return True
-            else:
-                return False
-    elif a_digit > b_digit:
+    if a_b >= b_a:
         return True
     else:
         return False
+
+# def is_greater_or_equal(a, b):
+#     if b == -1:
+#         return True
+#     a_list = []
+#     b_list = []
+#
+#     while a >= 10:
+#         a_list.insert(0, a % 10)
+#         a = a // 10
+#     a_list.insert(0, a)
+#
+#     while b >= 10:
+#         b_list.insert(0, b % 10)
+#         b = b // 10
+#     b_list.insert(0, b)
+#
+#     while len(a_list) > 0 and len(b_list) > 0:
+#         if a_list[0] == b_list[0]:
+#             a_list.pop(0)
+#             b_list.pop(0)
+#             continue
+#         elif a_list[0] > b_list[0]:
+#             return True
+#         elif a_list[0] < b_list[0]:
+#             return False
+#     if len(a_list) == 0:
+#         return True
+#     elif len(b_list) == 0:
+#         return False
 
 
 def test_cases():
@@ -103,14 +123,14 @@ def test_cases():
     else:
         print('fourth test failed')
 
-    if largest_number([1000, 1000, 999, 987, 1, 10, 9, 19, 91, 109, 901]) == 9999987919011091010001000:
+    if largest_number([999, 987, 1, 10, 9, 19, 91, 109, 901]) == 99999879190119110910:
         print('fifth test success')
     else:
         print('fifth test failed')
 
 
 if __name__ == '__main__':
-    test_cases()
+    # test_cases()
     input = sys.stdin.read()
     data = input.split()
     a = data[1:]
