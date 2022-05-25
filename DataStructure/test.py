@@ -10,6 +10,7 @@ def solution(id_list, report, k):
                 counts[i] = counts[i] + 1
                 names[i].append(rp.split(" ")[1])
                 break
+                
     mails = []
     for e, i in enumerate(counts):
         if e >= k:
