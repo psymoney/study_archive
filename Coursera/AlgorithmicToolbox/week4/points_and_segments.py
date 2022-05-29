@@ -57,12 +57,74 @@ Sample 3.
         2 0
 """
 import sys
+# initiate constants for types
+import random
+
+LEFT, POINT, RIGHT = 1, 2, 3
+DEBUG = True
 
 
 def fast_count_segments(starts, ends, points):
     cnt = [0] * len(points)
-    #write your code here
+    axis_list = []
+    # arrange each segments and points in an array for sorting
+    for e in starts:                                # O(n)
+        axis_list.append([e, LEFT])
+    for e in ends:                                  # O(n)
+        axis_list.append([e, RIGHT])
+    for e in points:                                # O(n)
+        axis_list.append([e, POINT])
+
+    quick_sort(axis_list, 0, len(axis_list) - 1)
+    if DEBUG:
+        print(f'result = {axis_list}')
+
+    queue = []
+    for item in axis_list:              # O(3n)
+        if item[1] == 1:
+            queue.append(item)
+        elif item[1] == 2:
+            cnt[points.index(item[0])] = len(queue)
+        elif item[1] == 3:
+            queue.pop(len(queue) - 1)
+
+    if DEBUG:
+        print(f'cnt = {cnt}')
     return cnt
+
+
+def quick_sort(array, left, right):
+    if left >= right:
+        return
+
+    mid = random.randint(left, right)
+    array[left], array[mid] = array[mid], array[left]
+
+    lt, rt = partition(array, left, right)
+
+    quick_sort(array, left, lt - 1)
+    quick_sort(array, rt + 1, right)
+
+
+def partition(a, l, r):
+    i = l
+    while i <= r:
+        if a[i][0] == a[l][0]:
+            # if a[l][1] < a[i][1]:
+            #     pass
+            # if a[l][1] == a[i][1]:
+            #     pass
+            if a[l][1] > a[i][1]:
+                a[l], a[i] = a[i], a[l]
+            i += 1
+        elif a[i][0] < a[l][0]:
+            a[i], a[l] = a[l], a[i]
+            i += 1
+            l += 1
+        elif a[i][0] > a[l][0]:
+            a[i], a[r] = a[r], a[i]
+            r -= 1
+    return l, r
 
 
 def naive_count_segments(starts, ends, points):
@@ -74,7 +136,15 @@ def naive_count_segments(starts, ends, points):
     return cnt
 
 
+def test_cases():
+    fast_count_segments([0, 7],[5, 10],[1, 6, 11])
+    fast_count_segments([-10],[10],[-100, 100, 0])
+    fast_count_segments([0, -3, 7],[5, 2, 10],[1, 6])
+
+
 if __name__ == '__main__':
+    if DEBUG:
+        test_cases()
     input = sys.stdin.read()
     data = list(map(int, input.split()))
     n = data[0]
@@ -83,6 +153,6 @@ if __name__ == '__main__':
     ends   = data[3:2 * n + 2:2]
     points = data[2 * n + 2:]
     #use fast_count_segments
-    cnt = naive_count_segments(starts, ends, points)
+    cnt = fast_count_segments(starts, ends, points)
     for x in cnt:
         print(x, end=' ')
