@@ -72,19 +72,20 @@ def fast_count_segments(starts, ends, points):
         axis_list.append([e, LEFT])
     for e in ends:                                  # O(n)
         axis_list.append([e, RIGHT])
-    for i, e in enumerate(points):                                # O(n)
+    for i, e in enumerate(points):                  # O(n)
         axis_list.append([e, POINT])
         if e not in point_map:
             point_map[e] = [i]
         else:
             point_map[e].append(i)
 
-    quick_sort(axis_list, 0, len(axis_list) - 1)
+    sa = sorted(axis_list, key=lambda e: (e[0], e[1]))
+    # quick_sort(axis_list, 0, len(axis_list) - 1)
     if DEBUG:
-        print(f'result = {axis_list}')
+        print(f'result = {sa}')
 
     queue = []
-    for item in axis_list:              # O(3n)
+    for item in sa:              # O(3n)
         if item[1] == 1:
             queue.append(item)
         elif item[1] == 2:
