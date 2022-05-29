@@ -57,23 +57,27 @@ Sample 3.
         2 0
 """
 import sys
-# initiate constants for types
 import random
 
 LEFT, POINT, RIGHT = 1, 2, 3
-DEBUG = True
+DEBUG = False
 
 
 def fast_count_segments(starts, ends, points):
     cnt = [0] * len(points)
     axis_list = []
+    point_map = {}
     # arrange each segments and points in an array for sorting
     for e in starts:                                # O(n)
         axis_list.append([e, LEFT])
     for e in ends:                                  # O(n)
         axis_list.append([e, RIGHT])
-    for e in points:                                # O(n)
+    for i, e in enumerate(points):                                # O(n)
         axis_list.append([e, POINT])
+        if e not in point_map:
+            point_map[e] = [i]
+        else:
+            point_map[e].append(i)
 
     quick_sort(axis_list, 0, len(axis_list) - 1)
     if DEBUG:
@@ -84,7 +88,9 @@ def fast_count_segments(starts, ends, points):
         if item[1] == 1:
             queue.append(item)
         elif item[1] == 2:
-            cnt[points.index(item[0])] = len(queue)
+            i = point_map[item[0]]
+            for j in i:
+                cnt[j] = len(queue)
         elif item[1] == 3:
             queue.pop(len(queue) - 1)
 
