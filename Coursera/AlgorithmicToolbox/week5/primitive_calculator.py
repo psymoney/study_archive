@@ -24,35 +24,58 @@ DEBUG = False
 
 def optimal_sequence(n):
     sequence = [0] * (n + 1)
+    operators = [None] * (n + 1)
+    result = []
+
+    if n == 1:
+        return [1]
 
     for i in range(2, n + 1):
         num_operations = math.inf
+        operator = ''
         if sequence[i - 1] + 1 < num_operations:
             num_operations = sequence[i - 1] + 1
+            operator = '+1'
         if i % 2 == 0 and sequence[i // 2] < num_operations:
             num_operations = sequence[i // 2] + 1
+            operator = '*2'
         if i % 3 == 0 and sequence[i // 3] < num_operations:
             num_operations = sequence[i // 3] + 1
+            operator = '*3'
         sequence[i] = num_operations
+        operators[i] = operator
 
+    result.append(n)
+    i = n
+    while i > 1:
+        operator = operators[i]
+
+        if operator == '+1':
+            i = i - 1
+        elif operator == '*2':
+            i = i // 2
+        elif operator == '*3':
+            i = i // 3
+        result.append(i)
+    result.reverse()
     if DEBUG:
-        print(sequence[n])
+        print(result)
 
-    return sequence[n]
+    return result
 
 
 def test_cases():
-    if optimal_sequence(1) == 0:
+    if optimal_sequence(1) == [1]:
         print('first test success')
     else:
         print('first test failed')
 
-    if optimal_sequence(5) == 3:
+    if optimal_sequence(5) == [1, 2, 4, 5]:
         print('second test success')
     else:
         print('second test failed')
 
-    if optimal_sequence(96234) == 14:
+    if optimal_sequence(96234) == [1, 3, 9, 10, 11, 22, 66, 198, 594, 1782, 5346, 16038, 16039, 32078, 96234]:
         print('third test success')
     else:
         print('third test failed')
