@@ -18,27 +18,26 @@ DEBUG = False
 
 
 def edit_distance(s, t):
-    distance = [[0] * len(t) for i in range(len(s))]
-    for i in range(len(s)):
+    distance = [[0] * (len(t) + 1) for i in range(len(s) + 1)]
+    for i in range(len(s) + 1):
         distance[i][0] = i
 
-    for j in range(len(t)):
+    for j in range(len(t) + 1):
         distance[0][j] = j
 
-    for j in range(len(t)):
-        for i in range(len(s)):
+    for j in range(1, len(t) + 1):
+        for i in range(1, len(s) + 1):
             insertion = distance[i][j-1] + 1
             deletion = distance[i-1][j] + 1
             match = distance[i-1][j-1]
             mismatch = distance[i-1][j-1] + 1
-
-            if s[i] == t[j]:
+            if s[i - 1] == t[j - 1]:
                 distance[i][j] = min(insertion, deletion, match)
             else:
-                distance[i][j] = min(insertion,deletion,mismatch)
+                distance[i][j] = min(insertion, deletion, mismatch)
 
     if DEBUG:
-        for i in range(len(s)):
+        for i in range(len(s) + 1):
             print(distance[i])
 
     return distance[-1][-1]
@@ -50,7 +49,7 @@ def test_case():
     else:
         print('first test failed')
 
-    if edit_distance('short', 'posts') == 3:
+    if edit_distance('short', 'ports') == 3:
         print('second test passed')
     else:
         print('second test failed')
@@ -64,4 +63,5 @@ def test_case():
 if __name__ == "__main__":
     if DEBUG:
        test_case()
+
     print(edit_distance(input(), input()))
