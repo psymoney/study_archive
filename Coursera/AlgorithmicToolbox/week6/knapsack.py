@@ -10,7 +10,7 @@
     Task.           Given 𝑛 gold bars, find the maximum weight of gold that fits into a bag of capacity 𝑊.
     Input Format.   The first line of the input contains the capacity 𝑊 of a knapsack and the number 𝑛 of bars
                     of gold. The next line contains 𝑛 integers 𝑤0,𝑤1, . . . ,𝑤𝑛−1 defining the weights of the bars of gold.
-    Constraints.    1 ≤ 𝑊 ≤ 104; 1 ≤ 𝑛 ≤ 300; 0 ≤ 𝑤0, . . . ,𝑤𝑛−1 ≤ 105.
+    Constraints.    1 ≤ 𝑊 ≤ 104; 1 ≤ 𝑛 ≤ 300; 0 ≤ 𝑤0, . . . ,𝑤𝑛−1 ≤ 10^5.
     Output Format.  Output the maximum weight of gold that fits into a knapsack of capacity 𝑊.
 
 # Sample 1.
@@ -39,15 +39,47 @@
 """
 import sys
 
+DEBUG = False
+
+
 def optimal_weight(W, w):
-    # write your code here
-    result = 0
-    for x in w:
-        if result + x <= W:
-            result = result + x
-    return result
+    matrix = [[0] * (W + 1) for _ in range(len(w) + 1)]
+
+    for i in range(len(w)):
+        for x in range(1, W + 1):
+            if x >= w[i]:
+                matrix[i][x] = w[i]
+                if x >= matrix[i][x] + matrix[i-1][x-matrix[i][x]]:
+                    matrix[i][x] = matrix[i][x] + matrix[i-1][x-matrix[i][x]]
+                if matrix[i - 1][x] > matrix[i][x]:
+                    matrix[i][x] = matrix[i - 1][x]
+            elif x >= matrix[i-1][x]:
+                matrix[i][x] = matrix[i-1][x]
+
+    if DEBUG:
+        for m in matrix:
+            print(m)
+
+    return matrix[-2][-1]
+
+
+def test_case():
+    if optimal_weight(10, [1, 4, 8]) == 9:
+        print('first test passed')
+    else:
+        print('first test failed')
+        return False
+
+    if optimal_weight(20, [5, 7, 12, 18]) == 19:
+        print('second test passed')
+    else:
+        print('second test failed')
+        return False
+
 
 if __name__ == '__main__':
+    if DEBUG:
+        test_case()
     input = sys.stdin.read()
     W, n, *w = list(map(int, input.split()))
     print(optimal_weight(W, w))
