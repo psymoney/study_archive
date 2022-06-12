@@ -42,25 +42,34 @@
 
 """
 import sys
-import itertools
 
-DEBUG = True
+DEBUG = False
 
 
 def partition3(A):
-    if DEBUG:
-        for c in itertools.product(range(3), repeat=len(A)):
-            print(c)
+    total_weight = sum(weight for weight in A)
+    if total_weight % 3 != 0 or total_weight < 3:
+        return 0
 
-    for c in itertools.product(range(3), repeat=len(A)):
-        sums = [None] * 3
-        for i in range(3):
-            sums[i] = sum(A[k] for k in range(len(A)) if c[k] == i)
+    count = 0
+    target = total_weight // 3
+    numbers = len(A)
+    values = [[0] * (numbers + 1) for _ in range(target + 1)]
 
-        if sums[0] == sums[1] and sums[1] == sums[2]:
-            return 1
+    for i in range(1, target + 1):
+        for j in range(1, numbers + 1):
+            values[i][j] = values[i][j - 1]
+            if A[j - 1] <= i:
+                t = values[i - A[j - 1]][j - 1] + A[j - 1]
+                if t > values[i][j]:
+                    values[i][j] = t
+            if values[i][j] == target:
+                count += 1
 
-    return 0
+    if count < 3:
+        return 0
+    else:
+        return 1
 
 
 def test_cases():
