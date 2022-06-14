@@ -2,17 +2,20 @@ def knapsack(N, K, W, V):
     m = [[0] * (K + 1) for _ in range(N + 1)]
     for n in range(N):
         for k in range(1, K + 1):
-            if W[n] <= k:
-                m[n][k] = V[n]
-            if m[n - 1][k] > m[n][k]:
-                m[n][k] = m[n - 1][k]
-            if m[n - 1][K-W[n]] + V[n] > m[n][k]:
-                m[n][k] = m[n - 1][K-W[n]] + V[n]
+            a = 0
+            b = m[n-1][k]
+            c = 0
+            if k >= W[n]:
+                a = V[n]
+                c = m[n-1][k-W[n]] + V[n]
+
+            m[n][k] = max(a, b, c)
+
 
     print(m)
     return m[N - 1][K]
 
-print(knapsack(4, 7, [6,4,3,5], [13,8,6,12]))
+print(knapsack(4, 20, [5,7,12,18], [13,8,6,12]))
 
 N, K = input().split()
 N,K = int(N), int(K)
