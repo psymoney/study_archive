@@ -64,7 +64,7 @@ def travel_from_to(_from, _to):
         if curr_node == _to:
             return 1
         if curr_node.visited:
-            continue # check if continue works
+            continue
         curr_node.visited = True
         for node in curr_node.adjacent_nodes:
             stack.append(node)
