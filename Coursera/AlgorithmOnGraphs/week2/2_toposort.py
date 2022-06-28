@@ -1,43 +1,46 @@
 """
-## Checking Consistency of CS Curriculum
+## Determining an Order of Courses
 
 # Problem Introduction
-    A Computer Science curriculum specifies the prerequisites for each course as a list of courses that should be
-    taken before taking this course. You would like to perform a consistency check of the curriculum, that is,
-    to check that there are no cyclic dependencies. For this, you construct the following directed graph: vertices
-    correspond to courses, there is a directed edge (𝑢, 𝑣) is the course 𝑢 should be taken before the course 𝑣.
-    Then, it is enough to check whether the resulting graph contains a cycle.
+    Now, when you are sure that there are no cyclic dependencies in the given CS curriculum, you would like to
+    find an order of all courses that is consistent with all dependencies. For this, you find a topological ordering
+    of the corresponding directed graph.
 
 # Problem Description
-    Task.           Check whether a given directed graph with 𝑛 vertices and 𝑚 edges contains a cycle.
+    Task.           Compute a topological ordering of a given directed acyclic graph (DAG) with 𝑛 vertices and 𝑚 edges.
     Input Format.   A graph is given in the standard format.
-    Constraints.    1 ≤ 𝑛 ≤ 103, 0 ≤ 𝑚 ≤ 103.
-    Output Format.  Output 1 if the graph contains a cycle and 0 otherwise.
+    Constraints.    1 ≤ 𝑛 ≤ 105, 0 ≤ 𝑚 ≤ 105. The given graph is guaranteed to be acyclic.
+    Output Format.  Output any topological ordering of its vertices. (Many DAGs have more than just one
+                    topological ordering. You may output any of them.)
 
-# Sample 1
+# Sample 1.
 Input:
-4 4
+4 3
 1 2
 4 1
-2 3
 3 1
-
 Output:
-1
+4 3 1 2
 
-# Sample 2
+# Sample 2.
+Input:
+4 1
+3 1
+Output:
+2 3 1 4
+
+# Sample 3.
 Input:
 5 7
-1 2
-2 3
-1 3
-3 4
-1 4
-2 5
-3 5
-
+2 1
+3 2
+3 1
+4 3
+4 1
+5 2
+5 3
 Output:
-0
+5 4 3 2 1
 """
 
 import sys
